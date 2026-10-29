@@ -1,0 +1,67 @@
+# =============================================================================
+#  z AXIS: source and streamer depth
+#
+#  The method extracts the wavelet with its ghosts, but the wavelet to extract
+#  changes with z:
+#      z_s/z_r      notches            |G| at 6 Hz   45 Hz   90 Hz
+#       6/6      125 Hz, out of band        0.09      3.27    2.37
+#      10/14      75 and 54 Hz              0.35      2.97    1.24
+#      15/25      50 and 30 Hz, in band     0.87      1.24    0.00
+#  Needs patch_shoot_z.py applied; without it the runner stops.  With a 3-m grid
+#  a source at 4-5 m is within two cells of the free surface and its ghost is
+#  not modelled reliably: z >= 6 m.
+# =============================================================================
+
+meta:
+  project: "wavelet_extraction_bgo_zaxis"
+  version: 1
+  v_water: 1500.0
+  dt_ms: 2.0
+  n_replicas: 20
+  seed_base: 20260813
+  n_shots: 20
+  w_len_ms: 200.0
+
+paths:
+  out_root: "wavelet_matrix_z"
+  manifest: "manifest.jsonl"
+  results: "results.jsonl"
+
+# The reference cell of v2, unchanged: only z changes.
+reference:
+  geom: "g3000"
+  D_m: 400.0
+  fmax_hz: 60.0
+  first_layer_m: 150.0
+  slope_deg: 0.0
+  roughness_m: 0.0
+  zmax_margin_m: 1600.0
+  snr_db: 30.0
+  p_fault: 0.0
+  p_folds: 0.0
+  p_lens: 0.0
+  n_ch: 1
+  z_src_m: 6.0
+  z_rec_m: 6.0
+
+# The grid is a point: the z axis does the work.
+grid:
+  D_m:           [400.0]
+  first_layer_m: [150.0]
+
+secondary_axes: {}
+
+# z_src and z_rec enter the ghost as the product G_s G_r, and are varied in
+# pairs that occur in acquisition.
+paired_cells:
+  z_10_14:  {z_src_m: 10.0, z_rec_m: 14.0}    # notches 75 and 54 Hz
+  z_15_25:  {z_src_m: 15.0, z_rec_m: 25.0}    # notches 50 and 30 Hz, as MS-29
+  z_18_28:  {z_src_m: 18.0, z_rec_m: 28.0}    # notches 42 and 27 Hz
+
+posthoc:
+  snr_db: [10.0, 30.0]
+
+covariates:
+  - R_wb_true
+  - n_layers
+  - first_refl_twt_ms

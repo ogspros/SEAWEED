@@ -1,0 +1,4 @@
+# inputs of the frozen runs, 2026-10-23T14:09:39Z
+06aa2b141a3066011b1a80b6f642696c  viking_pick/viking_cube.npy
+b050e155594e2921880e6f8085667db7  viking_pick/viking_anchors_conv.npz
+# seismic.sgy 749552400 bytes (hash skipped; WITH_SEGY=1 to include it)

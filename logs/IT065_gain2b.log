@@ -1,0 +1,43 @@
+
+*** tracking loaded from span_experiment/it065_track.npz: steps [0], [1] and [2] are SKIPPED ***
+
+gather memory-mapped from span_experiment/it065_cube.npy: (3051, 3000, 120), float32, 4.39 GB on disk
+offsets SET from the command line: 125-3100 m
+  max departure from headers: 0 m
+
+IT065_Raw_geom_100_3150.sgy: 3051 shot x 120 channels | dt 2.0 ms | record length 6000 ms
+offset 125-3100 m | initial D to be estimated from the autocorrelation
+[0] D_init from the cached tracking: 571 m
+
+[0b] amplitude trend over the whole record: RMS ~ t^-0.59
+     not a test of applied gain: late noise flattens it and a record starting
+     before the first arrival raises it.  The test is [2b].
+
+[1] Vw from the cached tracking: 1452.8 m/s
+
+[2] seafloor from the cached tracking (3051 shots)
+    tracked seafloor: t0 604-1179 ms -> D 439-857 m (scatter 169.0 ms)
+[2b] amplitude trend between primary and first multiple: RMS ~ t^-4.12 (3048 shots)
+     decaying, as raw data do
+[3] applicability: D 636 m vs D_min 198 m -> OK
+    maximum usable offset 2643 m -> 101 channels
+
+[4] PRIMARY: 3048 windows | coherence 0.696 | origin-lead +20 ms | align. residual 3.4 ms
+[5] MULTIPLE: 3048 windows | coherence 0.440
+    >>> VALIDATOR 0.986  sign -1
+    >>> D from matched-filter Dt: 633 m (tracked 636 m, departure -0.5%)
+    >>> R_wb 0.384 (spreading 3D x1.99) -- qualitative indication only
+    2nd multiple: 3048 windows | coherence 0.337 | score 0.825 sign +1
+    >>> R_wb from 2nd/1st multiple: 0.378  against 0.384 from 1st/primary
+        relative discrepancy 2%  -> consistent: the amplitude ratio is usable
+
+[7] Independent check: amplitude spectrum against the statistical estimate
+    (21336 windows below the seafloor, white-reflectivity assumption): r = +0.846
+    This shares no assumptions with the workflow: no seafloor, no tracking,
+    no alignment. It constrains the MODULUS only -- phase is not recoverable
+    without assuming it, and an airgun signature is mixed-phase.
+    Restricted to 20-90 Hz, where the pre-arrival noise no longer
+    dominates: r = +0.966
+
+figure: gaincheck/it065.png
+wavelet: gaincheck/it065_wavelet.npy

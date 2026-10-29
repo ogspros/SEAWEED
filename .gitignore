@@ -1,0 +1,49 @@
+*
+!*/
+!.gitignore
+!*.py
+!*.sh
+!*.md
+!*.tex
+!*.bib
+!*.cff
+!.zenodo.json
+!*.yml
+!LICENSE
+!pyproject.toml
+# the logs the paper's numbers are read from (docs/RUNS.md names each one)
+!logs/*.log
+dataset_geomvar/
+dataset_multiregime/
+
+# The frozen products of the runs behind the paper.  They are the exception to
+# "no arrays in git": ten wavelets of 200 bytes each, and the hashes the smoke
+# test of tests/README.md compares against.
+!tests/reference_md5.txt
+!tests/reference_inputs.md5
+!tests/reference_stats.tsv
+!tests/reference_env.txt
+!tests/reference/*.npy
+!tests/reference/*.npz
+# the same for the final recipe (H3.1): ten wavelets and the H3.1 tracking
+!tests/reference_final_md5.txt
+!tests/reference_final_inputs.md5
+!tests/reference_final_stats.tsv
+!tests/reference_final_env.txt
+!tests/reference_final/*.npy
+!tests/reference_final/*.npz
+
+# What a smoke test run produces is not kept.
+tests/_smoke_out/
+
+# The configurations of the synthetic matrices, next to the scripts that read
+# them.  Only this folder: the drivers also write .yaml files next to the
+# data, and those are copies.
+!validation/synthetic/*.yaml
+# the run ids of the picker tests and of the models rerun after the robustness
+# corrections (validation/synthetic/README.md)
+!validation/synthetic/*.json
+
+# What `pip install` leaves behind.
+build/
+*.egg-info/

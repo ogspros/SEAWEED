@@ -1,0 +1,55 @@
+
+gather memory-mapped from span_experiment/ms29_cube.npy: (800, 2049, 24), float32, 0.16 GB on disk
+offsets SET from the command line: 300-2600 m
+  max departure from headers: 0 m
+
+MS29_SP300_1157.sgy: 800 shot x 24 channels | dt 4.0 ms | record length 8196 ms
+offset 300-2600 m | initial D to be estimated from the autocorrelation
+[0] t0 from autocorrelation: 1180 ms (3 groups, 0 rejected, spread 20 ms)
+    lobe at t0 -0.355 (expected NEGATIVE), at 2*t0 +0.089 (expected positive)
+    -> D_init inferred: 885 m (with a provisional Vw of 1500)
+
+[0b] amplitude trend: RMS ~ t^+1.57  (GAIN ALREADY APPLIED)
+     Amplitude ratios between events are not reliable on these data:
+     the R_wb estimate below should be disregarded. The waveform itself
+     is unaffected, since it is normalised.
+
+[1] Vw from the direct arrival: 1514.5 m/s (16882 picks)  [assumed 1500 -> +1.0%]
+    fit intercept: +13.4 m. Lumps together the error in the nominal near offset
+    and the picking bias (x0 = dx - V*dt): it does not separate them, but if |x0|
+    exceeds the channel spacing the near offset from the field report needs checking.
+[2] anchors read from span_experiment/ms29_anchors_conv.npz: 15 anchors, t0 947-1479 ms
+    the semblance is skipped; the cross-correlation tracking, the drift
+    smoothing and the t0_shift are unchanged
+    median anchor spacing 50 shots  (sparse: consider more)
+[2] semblance over 15 anchors: t0 947-1479 ms | median V 1515 m/s
+    velocity resolution: peak half-width nan m/s, offsets to nan m (stretch limit 0.45)
+    drift: 15 anchors, moving median over 5, anchor scatter 34.4 ms
+    NOTE: first valid anchor at shot 24; shots 0-23 are only extrapolated. Raise --n_anchor or check the search window if the start looks mis-locked.
+    drift relative to anchors: mean +108 ms, spread 28 ms
+    tracked seafloor: t0 975-1508 ms -> D 738-1142 m (scatter 158.6 ms)
+[3] applicability: D 884 m vs D_min 261 m -> OK
+    maximum usable offset 5013 m -> 48 channels
+
+[4] PRIMARY: 798 windows | coherence 0.737 | origin-lead -48 ms | align. residual 5.6 ms
+[5] MULTIPLE: 798 windows | coherence 0.581
+    >>> VALIDATOR 0.962  sign -1
+    >>> D from matched-filter Dt: 906 m (tracked 884 m, departure +2.4%)
+    >>> R_wb 1.116 (spreading 3D x1.98) -- qualitative indication only
+    2nd multiple: 798 windows | coherence 0.441 | score 0.842 sign +1
+    >>> R_wb from 2nd/1st multiple: 0.616  against 1.116 from 1st/primary
+        relative discrepancy 58%  -> INCONSISTENT
+        Cause is most likely the gain already applied to the data (see [0b]).
+        No single spreading exponent can reconcile the two estimates when
+        the gain is not a simple function of time, as with AGC.
+
+[7] Independent check: amplitude spectrum against the statistical estimate
+    (6265 windows below the seafloor, white-reflectivity assumption): r = +0.877
+    This shares no assumptions with the workflow: no seafloor, no tracking,
+    no alignment. It constrains the MODULUS only -- phase is not recoverable
+    without assuming it, and an airgun signature is mixed-phase.
+    Restricted to 20-90 Hz, where the pre-arrival noise no longer
+    dominates: r = +0.917
+
+figure: span_experiment/ms29_conv.png
+wavelet: span_experiment/ms29_conv_wavelet.npy

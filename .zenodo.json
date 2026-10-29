@@ -1,0 +1,47 @@
+{
+  "title": "SEAWEED: SEAfloor WavelEt Extraction and Diagnostics",
+  "version": "1.0.0",
+  "upload_type": "software",
+  "description": "An automated workflow, with fixed default parameters, for extracting the effective wavelet (source signature with source and receiver ghosts) from marine seismic data when a recorded source signature is unavailable, with physical and statistical diagnostics from the water-layer multiples and a statistical estimate of the amplitude spectrum.",
+  "creators": [
+    {
+      "name": "Brancatelli, Giuseppe",
+      "affiliation": "National Institute of Oceanography and Applied Geophysics - OGS",
+      "orcid": "0000-0003-0301-7804"
+    },
+    {
+      "name": "Busetti, Martina",
+      "affiliation": "National Institute of Oceanography and Applied Geophysics - OGS",
+      "orcid": "0000-0001-7039-3282"
+    },
+    {
+      "name": "Forlin, Edy",
+      "affiliation": "National Institute of Oceanography and Applied Geophysics - OGS",
+      "orcid": "0000-0002-6756-7277"
+    },
+    {
+      "name": "Geletti, Riccardo",
+      "affiliation": "National Institute of Oceanography and Applied Geophysics - OGS",
+      "orcid": "0000-0002-6574-011X"
+    },
+    {
+      "name": "Lipari, Vincenzo",
+      "affiliation": "National Institute of Oceanography and Applied Geophysics - OGS",
+      "orcid": "0000-0002-6514-8052"
+    },
+    {
+      "name": "Pignelli, Rogerio",
+      "affiliation": "National Institute of Oceanography and Applied Geophysics - OGS; University of Trieste",
+      "orcid": "0009-0008-9907-8110"
+    }
+  ],
+  "license": "bsd-3-clause",
+  "access_right": "open",
+  "keywords": [
+    "source signature",
+    "wavelet extraction",
+    "marine seismic",
+    "water-bottom multiple",
+    "archive data reprocessing"
+  ]
+}

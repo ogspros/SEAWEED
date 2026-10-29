@@ -1,0 +1,59 @@
+# =============================================================================
+#  SYSTEMATIC FAULTS: errors that every shot shares, so that stack coherence
+#  stays high while the result is wrong (incoherent noise, by contrast, lowers
+#  coherence).
+#   A. a bias on t0 (a misplaced window), applied at extraction: it matters
+#      when it exceeds the window margins (lead 80 ms, tail 60 ms) and the
+#      wavelet is truncated.
+#   B. a reflector close below the seafloor (30, 50, 80 m -> 32, 53, 84 ms
+#      twt): coherent contamination, which survives stacking; 150 m is the
+#      control.
+#  SNR stays high (10 and 30 dB nominal) to isolate the systematic fault.
+# =============================================================================
+
+meta:
+  project: "wavelet_extraction_bgo_fault"
+  version: 1
+  v_water: 1500.0
+  dt_ms: 2.0
+  n_replicas: 20
+  seed_base: 20260812
+  n_shots: 20
+  w_len_ms: 200.0
+
+paths:
+  out_root: "wavelet_matrix_fault"
+  manifest: "manifest.jsonl"
+  results: "results.jsonl"
+
+reference:
+  geom: "g3000"
+  D_m: 400.0
+  fmax_hz: 60.0
+  first_layer_m: 150.0
+  slope_deg: 0.0
+  roughness_m: 0.0
+  zmax_margin_m: 1600.0
+  snr_db: 30.0
+  p_fault: 0.0
+  p_folds: 0.0
+  p_lens: 0.0
+  n_ch: 1
+
+# FAULT B: coherent contamination, needs new models
+grid:
+  D_m:           [400.0]
+  first_layer_m: [30.0, 50.0, 80.0, 150.0]
+
+secondary_axes: {}
+
+posthoc:
+  snr_db: [10.0, 30.0]
+  # FAULT A: bias on t0, on the same gathers.  Lead 80 ms / tail 60 ms: beyond
+  # +60 ms the wavelet is truncated at the tail, below -80 ms the window starts early.
+  t0_bias_ms: [-120.0, -60.0, 0.0, 60.0, 120.0]
+
+covariates:
+  - R_wb_true
+  - n_layers
+  - first_refl_twt_ms

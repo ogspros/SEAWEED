@@ -1,0 +1,53 @@
+
+gather memory-mapped from viking_pick/viking_cube.npy: (1001, 1500, 120), float32, 0.72 GB on disk
+offsets SET from the command line: 262-3237 m
+  max departure from headers: 0 m
+
+seismic.sgy: 1001 shot x 120 channels | dt 4.0 ms | record length 6000 ms
+offset 262-3237 m | initial D to be estimated from the autocorrelation
+[0] t0 from autocorrelation: 456 ms (3 groups, 0 rejected, spread 0 ms)
+    lobe at t0 -0.125 (expected NEGATIVE), at 2*t0 -0.001 (expected positive)
+    -> D_init inferred: 342 m (with a provisional Vw of 1500)
+
+[0b] amplitude trend: RMS ~ t^-1.53  (consistent with RAW data)
+
+[1] Vw from the direct arrival: 1448.4 m/s (39969 picks)  [assumed 1500 -> -3.4%]
+    fit intercept: -34.7 m. Lumps together the error in the nominal near offset
+    and the picking bias (x0 = dx - V*dt): it does not separate them, but if |x0|
+    exceeds the channel spacing the near offset from the field report needs checking.
+[2] anchors read from viking_pick/viking_anchors_conv.npz: 9 anchors, t0 451-523 ms
+    the semblance is skipped; the cross-correlation tracking, the drift
+    smoothing and the t0_shift are unchanged
+    median anchor spacing 100 shots  (sparse: consider more)
+[2] semblance over 9 anchors: t0 451-523 ms | median V 1448 m/s
+    velocity resolution: peak half-width nan m/s, offsets to nan m (stretch limit 0.15)
+    drift: 9 anchors, moving median over 4, anchor scatter 21.6 ms
+    NOTE: first valid anchor at shot 50; shots 0-49 are only extrapolated. Raise --n_anchor or check the search window if the start looks mis-locked.
+    drift relative to anchors: mean +107 ms, spread 35 ms
+    tracked seafloor: t0 463-486 ms -> D 336-352 m (scatter 8.1 ms)
+    tracking saved to viking_conv41/viking_track_conv.npz (reuse it with --load_track to keep the seafloor identical across runs)
+[3] applicability: D 348 m vs D_min 243 m -> OK
+    maximum usable offset 689 m -> 18 channels
+    extraction on 100 shots: 0-999 step 10 (100/1001 of the line, spanning 1000 shot positions)
+
+[4] PRIMARY: 100 windows | coherence 0.726 | origin-lead -24 ms | align. residual 8.8 ms
+[5] MULTIPLE: 100 windows | coherence 0.483
+    >>> VALIDATOR 0.687  sign -1
+    >>> D from matched-filter Dt: 377 m (tracked 348 m, departure +8.5%)
+    >>> R_wb 0.284 (spreading 3D x1.90) -- qualitative indication only
+    2nd multiple: 100 windows | coherence 0.437 | score 0.621 sign +1
+    >>> R_wb from 2nd/1st multiple: 0.451  against 0.284 from 1st/primary
+        relative discrepancy 45%  -> INCONSISTENT
+        The multiple window is contaminated; treat R_wb as an order
+        of magnitude only.
+
+[7] Independent check: amplitude spectrum against the statistical estimate
+    (8008 windows below the seafloor, white-reflectivity assumption): r = +0.869
+    This shares no assumptions with the workflow: no seafloor, no tracking,
+    no alignment. It constrains the MODULUS only -- phase is not recoverable
+    without assuming it, and an airgun signature is mixed-phase.
+    Restricted to 20-90 Hz, where the pre-arrival noise no longer
+    dominates: r = +0.891
+
+figure: viking_conv41/track_seed.png
+wavelet: viking_conv41/track_seed_wavelet.npy

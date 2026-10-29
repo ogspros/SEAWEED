@@ -1,0 +1,82 @@
+meta:
+  project: wavelet_extraction_bgo
+  version: 2
+  v_water: 1500.0
+  dt_ms: 2.0
+  n_replicas: 20
+  seed_base: 20260810
+  n_shots: 20
+  w_len_ms: 200.0
+paths:
+  out_root: wavelet_matrix_v2
+  manifest: manifest.jsonl
+  results: results.jsonl
+reference:
+  geom: g3000
+  D_m: 400.0
+  fmax_hz: 60.0
+  first_layer_m: 150.0
+  slope_deg: 0.0
+  roughness_m: 0.0
+  zmax_margin_m: 1600.0
+  snr_db: 30.0
+  p_fault: 0.0
+  p_folds: 0.0
+  p_lens: 0.0
+  n_ch: 1
+grid:
+  D_m:
+  - 100.0
+  - 140.0
+  - 180.0
+  - 220.0
+  - 260.0
+  - 350.0
+  - 600.0
+  - 1000.0
+  first_layer_m:
+  - 80.0
+  - 150.0
+  - 300.0
+secondary_axes:
+  fmax_hz:
+  - 35.0
+  - 45.0
+  - 80.0
+  slope_deg:
+  - 2.0
+  - 5.0
+  - 10.0
+  roughness_m:
+  - 5.0
+  - 15.0
+  geom:
+  - g1500
+  - g4500
+  p_folds:
+  - 1.0
+  p_fault:
+  - 1.0
+  p_lens:
+  - 1.0
+  n_ch:
+  - 4
+  - 16
+  - 32
+posthoc:
+  snr_db:
+  - 0.0
+  - 10.0
+  - 20.0
+  - 30.0
+  t0_bias_ms:
+  - 0.0
+  measure_tracking: false
+covariates:
+- R_wb_true
+- n_layers
+- has_fault
+- has_lens
+- x_max_usable_m
+- n_ch_used
+- first_refl_twt_ms

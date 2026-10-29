@@ -1,0 +1,45 @@
+
+*** tracking loaded from span_experiment/ms29_track.npz: steps [0], [1] and [2] are SKIPPED ***
+
+gather memory-mapped from span_experiment/ms29_cube.npy: (800, 2049, 24), float32, 0.16 GB on disk
+offsets SET from the command line: 300-2600 m
+  max departure from headers: 0 m
+
+MS29_SP300_1157.sgy: 800 shot x 24 channels | dt 4.0 ms | record length 8196 ms
+offset 300-2600 m | initial D to be estimated from the autocorrelation
+[0] D_init from the cached tracking: 885 m
+
+[0b] amplitude trend over the whole record: RMS ~ t^+1.57
+     not a test of applied gain: late noise flattens it and a record starting
+     before the first arrival raises it.  The test is [2b].
+
+[1] Vw from the cached tracking: 1514.5 m/s
+
+[2] seafloor from the cached tracking (800 shots)
+    tracked seafloor: t0 928-1456 ms -> D 703-1102 m (scatter 151.3 ms)
+[2b] amplitude trend between primary and first multiple: RMS ~ t^-1.88 (798 shots)
+     decaying, as raw data do
+[3] applicability: D 844 m vs D_min 261 m -> OK
+    maximum usable offset 4553 m -> 43 channels
+
+[4] PRIMARY: 798 windows | coherence 0.763 | origin-lead -8 ms | align. residual 10.1 ms
+[5] MULTIPLE: 798 windows | coherence 0.579
+    >>> VALIDATOR 0.968  sign -1
+    >>> D from matched-filter Dt: 853 m (tracked 844 m, departure +1.1%)
+    >>> R_wb 1.110 (spreading 3D x1.98) -- qualitative indication only
+    2nd multiple: 798 windows | coherence 0.431 | score 0.880 sign +1
+    >>> R_wb from 2nd/1st multiple: 0.724  against 1.110 from 1st/primary
+        relative discrepancy 42%  -> INCONSISTENT
+        The multiple window is contaminated; treat R_wb as an order
+        of magnitude only.
+
+[7] Independent check: amplitude spectrum against the statistical estimate
+    (6265 windows below the seafloor, white-reflectivity assumption): r = +0.884
+    This shares no assumptions with the workflow: no seafloor, no tracking,
+    no alignment. It constrains the MODULUS only -- phase is not recoverable
+    without assuming it, and an airgun signature is mixed-phase.
+    Restricted to 20-90 Hz, where the pre-arrival noise no longer
+    dominates: r = +0.917
+
+figure: gaincheck/ms29.png
+wavelet: gaincheck/ms29_wavelet.npy

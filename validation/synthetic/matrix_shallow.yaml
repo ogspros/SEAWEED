@@ -1,0 +1,65 @@
+# =============================================================================
+#  SHALLOW WATER: the separation threshold
+#
+#  Depths down to 40 m requested; the generator does not build water shallower
+#  than 78 m.  Separation margin m = (t_pri - t_dir) / L_w at the near trace
+#  (125 m, g3000):
+#      D =  40 m -> 16 ms  -> m = 0.08
+#      D =  55 m -> 28 ms  -> m = 0.14
+#      D =  70 m -> 42 ms  -> m = 0.21
+#      D =  85 m -> 57 ms  -> m = 0.29
+#      D = 100 m -> 74 ms  -> m = 0.37
+#      D = 120 m -> 97 ms  -> m = 0.49
+#      D = 140 m -> 121 ms -> m = 0.61
+#      D = 170 m -> 158 ms -> m = 0.79
+#      D = 203 m -> 200 ms -> m = 1.00   (m >= 1)
+#      D = 260 m -> 273 ms -> m = 1.37
+#  Two contamination levels (80 and 150 m), the other factor in shallow water.
+# =============================================================================
+
+meta:
+  project: "wavelet_extraction_bgo_shallow"
+  version: 1
+  v_water: 1500.0
+  dt_ms: 2.0
+  n_replicas: 20
+  seed_base: 20260814
+  n_shots: 20
+  w_len_ms: 200.0
+
+paths:
+  out_root: "wavelet_matrix_shallow"
+  manifest: "manifest.jsonl"
+  results: "results.jsonl"
+
+reference:
+  geom: "g3000"            # near 125 m: m >= 1 from 203 m
+  D_m: 100.0
+  fmax_hz: 60.0
+  first_layer_m: 150.0
+  slope_deg: 0.0
+  roughness_m: 0.0
+  zmax_margin_m: 1600.0
+  snr_db: 30.0
+  p_fault: 0.0
+  p_folds: 0.0
+  p_lens: 0.0
+  n_ch: 1
+  z_src_m: 6.0
+  z_rec_m: 6.0
+
+grid:
+  # denser around the threshold, down to complete overlap
+  D_m:           [40.0, 55.0, 70.0, 85.0, 100.0, 120.0, 140.0, 170.0, 203.0, 260.0]
+  first_layer_m: [80.0, 150.0]
+
+secondary_axes: {}
+
+posthoc:
+  snr_db: [30.0]           # low noise: the separation alone
+
+covariates:
+  - R_wb_true
+  - n_layers
+  - first_refl_twt_ms
+  - x_max_usable_m

@@ -1,0 +1,57 @@
+# =============================================================================
+#  SNR MATRIX: one cell, the noise axis on the effective scale
+#
+#  In the v2 matrix the nominal levels (0, 10, 20, 30 dB) were about 17 dB
+#  lower than the SNR of the extracted wavelet: the noise was scaled on the RMS
+#  of the whole gather (primary window / gather +4.1 dB) and stacking 20 shots
+#  adds 13.0 dB.  Here -25 to 0 dB nominal, -8 to +17 dB after stacking: the
+#  regime where the method degrades.
+# =============================================================================
+
+meta:
+  project: "wavelet_extraction_bgo_snr"
+  version: 1
+  v_water: 1500.0
+  dt_ms: 2.0
+  n_replicas: 20
+  seed_base: 20260811       # not that of v2: independent realisations
+  n_shots: 20
+  w_len_ms: 200.0
+
+paths:
+  out_root: "wavelet_matrix_snr"
+  manifest: "manifest.jsonl"
+  results: "results.jsonl"
+
+# The reference cell of v2, unchanged: only the noise changes.
+reference:
+  geom: "g3000"
+  D_m: 400.0
+  fmax_hz: 60.0
+  first_layer_m: 150.0
+  slope_deg: 0.0
+  roughness_m: 0.0
+  zmax_margin_m: 1600.0
+  snr_db: 30.0
+  p_fault: 0.0
+  p_folds: 0.0
+  p_lens: 0.0
+  n_ch: 1
+
+# One cell: the grid is a point, and the post-hoc SNR axis (the same gathers
+# with different noise) does the work.
+grid:
+  D_m:           [400.0]
+  first_layer_m: [150.0]
+
+secondary_axes: {}
+
+posthoc:
+  # nominal -> effective after stacking: add about +17 dB
+  snr_db: [-25.0, -20.0, -15.0, -10.0, -5.0, 0.0, 10.0]
+
+covariates:
+  - R_wb_true
+  - n_layers
+  - x_max_usable_m
+  - first_refl_twt_ms

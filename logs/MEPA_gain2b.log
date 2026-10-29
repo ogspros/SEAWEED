@@ -1,0 +1,43 @@
+
+*** tracking loaded from span_experiment/mepa_track.npz: steps [0], [1] and [2] are SKIPPED ***
+
+gather memory-mapped from span_experiment/mepa_cube.npy: (1932, 2250, 120), float32, 2.09 GB on disk
+offsets SET from the command line: 50-1538 m
+  max departure from headers: 0 m
+
+MEPA_RAW_geom_100_2031_filt.sgy: 1932 shot x 120 channels | dt 2.0 ms | record length 4500 ms
+offset 50-1538 m | initial D to be estimated from the autocorrelation
+[0] D_init from the cached tracking: 800 m
+
+[0b] amplitude trend over the whole record: RMS ~ t^-0.14
+     not a test of applied gain: late noise flattens it and a record starting
+     before the first arrival raises it.  The test is [2b].
+
+[1] Vw from the cached tracking: 1499.2 m/s
+
+[2] seafloor from the cached tracking (1932 shots)
+    tracked seafloor: t0 937-1075 ms -> D 702-806 m (scatter 40.3 ms)
+[2b] amplitude trend between primary and first multiple: RMS ~ t^-2.28 (1932 shots)
+     decaying, as raw data do
+[3] applicability: D 763 m vs D_min 173 m -> OK
+    maximum usable offset 3729 m -> 295 channels
+
+[4] PRIMARY: 1932 windows | coherence 0.699 | origin-lead +28 ms | align. residual 2.2 ms
+[5] MULTIPLE: 1932 windows | coherence 0.353
+    >>> VALIDATOR 0.897  sign -1
+    >>> D from matched-filter Dt: 758 m (tracked 763 m, departure -0.6%)
+    >>> R_wb 0.292 (spreading 3D x2.00) -- qualitative indication only
+    2nd multiple: 1932 windows | coherence 0.302 | score 0.277 sign +1
+    >>> R_wb from 2nd/1st multiple: 0.295  against 0.292 from 1st/primary
+        relative discrepancy 1%  -> consistent: the amplitude ratio is usable
+
+[7] Independent check: amplitude spectrum against the statistical estimate
+    (15456 windows below the seafloor, white-reflectivity assumption): r = +0.898
+    This shares no assumptions with the workflow: no seafloor, no tracking,
+    no alignment. It constrains the MODULUS only -- phase is not recoverable
+    without assuming it, and an airgun signature is mixed-phase.
+    Restricted to 20-90 Hz, where the pre-arrival noise no longer
+    dominates: r = +0.893
+
+figure: gaincheck/mepa.png
+wavelet: gaincheck/mepa_wavelet.npy

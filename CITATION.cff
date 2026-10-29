@@ -1,0 +1,62 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below, and the paper in preferred-citation."
+title: "SEAWEED: SEAfloor WavelEt Extraction and Diagnostics"
+version: 1.0.0
+license: BSD-3-Clause
+repository-code: "https://github.com/ogspros/SEAWEED"
+abstract: >-
+  An automated workflow, with fixed default parameters, for extracting the
+  effective wavelet (source signature with source and receiver ghosts) from
+  marine seismic data when a recorded source signature is unavailable, with
+  physical and statistical diagnostics from the water-layer multiples and a
+  statistical estimate of the amplitude spectrum.
+keywords:
+  - source signature
+  - wavelet extraction
+  - marine seismic
+  - water-bottom multiple
+  - archive data reprocessing
+authors:
+  - family-names: Brancatelli
+    given-names: Giuseppe
+    affiliation: "National Institute of Oceanography and Applied Geophysics - OGS"
+    email: gbrancatelli@ogs.it
+    orcid: "https://orcid.org/0000-0003-0301-7804"
+  - family-names: Busetti
+    given-names: Martina
+    affiliation: "National Institute of Oceanography and Applied Geophysics - OGS"
+    orcid: "https://orcid.org/0000-0001-7039-3282"
+  - family-names: Forlin
+    given-names: Edy
+    affiliation: "National Institute of Oceanography and Applied Geophysics - OGS"
+    orcid: "https://orcid.org/0000-0002-6756-7277"
+  - family-names: Geletti
+    given-names: Riccardo
+    affiliation: "National Institute of Oceanography and Applied Geophysics - OGS"
+    orcid: "https://orcid.org/0000-0002-6574-011X"
+  - family-names: Lipari
+    given-names: Vincenzo
+    affiliation: "National Institute of Oceanography and Applied Geophysics - OGS"
+    orcid: "https://orcid.org/0000-0002-6514-8052"
+  - family-names: Pignelli
+    given-names: Rogerio
+    affiliation: "National Institute of Oceanography and Applied Geophysics - OGS; University of Trieste"
+    orcid: "https://orcid.org/0009-0008-9907-8110"
+preferred-citation:
+  type: article
+  title: "SEAWEED: an open-source workflow for automated extraction and diagnostics of effective marine seismic wavelets"
+  journal: "Bulletin of Geophysics and Oceanography"
+  status: submitted
+  authors:
+    - family-names: Brancatelli
+      given-names: Giuseppe
+    - family-names: Busetti
+      given-names: Martina
+    - family-names: Forlin
+      given-names: Edy
+    - family-names: Geletti
+      given-names: Riccardo
+    - family-names: Lipari
+      given-names: Vincenzo
+    - family-names: Pignelli
+      given-names: Rogerio

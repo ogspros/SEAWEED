@@ -1,0 +1,48 @@
+
+*** tracking loaded from span_experiment/ms29_track.npz: steps [0], [1] and [2] are SKIPPED ***
+
+gather memory-mapped from span_experiment/ms29_cube.npy: (800, 2049, 24), float32, 0.16 GB on disk
+offsets SET from the command line: 300-2600 m
+  max departure from headers: 0 m
+
+MS29_SP300_1157.sgy: 800 shot x 24 channels | dt 4.0 ms | record length 8196 ms
+offset 300-2600 m | initial D to be estimated from the autocorrelation
+[0] D_init from the cached tracking: 885 m
+
+[0b] amplitude trend: RMS ~ t^+1.57  (GAIN ALREADY APPLIED)
+     Amplitude ratios between events are not reliable on these data:
+     the R_wb estimate below should be disregarded. The waveform itself
+     is unaffected, since it is normalised.
+
+[1] Vw from the cached tracking: 1514.5 m/s
+
+[2] seafloor from the cached tracking (800 shots)
+    tracked seafloor: t0 928-1456 ms -> D 703-1102 m (scatter 151.3 ms)
+[3] applicability: D 844 m vs D_min 261 m -> OK
+    maximum usable offset 4553 m -> 43 channels
+
+[4] PRIMARY: 798 windows | coherence 0.799 | origin-lead -8 ms | align. residual 10.1 ms
+[5] MULTIPLE: 798 windows | coherence 0.628
+    >>> VALIDATOR 0.978  sign -1
+    >>> D from matched-filter Dt: 853 m (tracked 844 m, departure +1.1%)
+    >>> R_wb 1.129 (spreading 3D x1.98) -- qualitative indication only
+    2nd multiple: 798 windows | coherence 0.458 | score 0.914 sign +1
+    >>> R_wb from 2nd/1st multiple: 0.798  against 1.129 from 1st/primary
+        relative discrepancy 34%  -> INCONSISTENT
+        Cause is most likely the gain already applied to the data (see [0b]).
+        No single spreading exponent can reconcile the two estimates when
+        the gain is not a simple function of time, as with AGC.
+[6] NCC(extracted, w_ms29_new.npy) = 0.897 (lag -12, overlap 38/50)
+    NB: the reference is an ESTIMATE, not ground truth: a low value
+        does not say which of the two is wrong.
+
+[7] Independent check: amplitude spectrum against the statistical estimate
+    (6265 windows below the seafloor, white-reflectivity assumption): r = +0.884
+    This shares no assumptions with the workflow: no seafloor, no tracking,
+    no alignment. It constrains the MODULUS only -- phase is not recoverable
+    without assuming it, and an airgun signature is mixed-phase.
+    Restricted to 20-90 Hz, where the pre-arrival noise no longer
+    dominates: r = +0.917
+
+figure: span_experiment/ms29_reference_full_line.png
+wavelet: span_experiment/ms29_reference_full_line_wavelet.npy

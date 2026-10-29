@@ -1,0 +1,40 @@
+
+*** tracking loaded from viking_conv41/viking_track_conv.npz: steps [0], [1] and [2] are SKIPPED ***
+
+gather memory-mapped from viking_pick/viking_cube.npy: (1001, 1500, 120), float32, 0.72 GB on disk
+offsets SET from the command line: 262-3237 m
+  max departure from headers: 0 m
+
+seismic.sgy: 1001 shot x 120 channels | dt 4.0 ms | record length 6000 ms
+offset 262-3237 m | initial D to be estimated from the autocorrelation
+[0] D_init from the cached tracking: 342 m
+
+[0b] amplitude trend: RMS ~ t^-1.53  (consistent with RAW data)
+
+[1] Vw from the cached tracking: 1448.4 m/s
+
+[2] seafloor from the cached tracking (1001 shots)
+    tracked seafloor: t0 463-486 ms -> D 336-352 m (scatter 8.1 ms)
+[3] applicability: D 348 m vs D_min 243 m -> OK
+    maximum usable offset 689 m -> 18 channels
+    extraction on 500 shots: 500-999 step 1 (500/1001 of the line, spanning 500 shot positions)
+
+[4] PRIMARY: 500 windows | coherence 0.850 | origin-lead -4 ms | align. residual 3.7 ms
+[5] MULTIPLE: 500 windows | coherence 0.593
+    >>> VALIDATOR 0.662  sign -1
+    >>> D from matched-filter Dt: 340 m (tracked 338 m, departure +0.4%)
+    >>> R_wb 0.276 (spreading 3D x1.90) -- qualitative indication only
+    2nd multiple: 500 windows | coherence 0.478 | score 0.570 sign +1
+    >>> R_wb from 2nd/1st multiple: 0.270  against 0.276 from 1st/primary
+        relative discrepancy 2%  -> consistent: the amplitude ratio is usable
+
+[7] Independent check: amplitude spectrum against the statistical estimate
+    (8008 windows below the seafloor, white-reflectivity assumption): r = +0.848
+    This shares no assumptions with the workflow: no seafloor, no tracking,
+    no alignment. It constrains the MODULUS only -- phase is not recoverable
+    without assuming it, and an airgun signature is mixed-phase.
+    Restricted to 20-90 Hz, where the pre-arrival noise no longer
+    dominates: r = +0.863
+
+figure: viking_conv41/E_n500_L12.5km_blk1.png
+wavelet: viking_conv41/E_n500_L12.5km_blk1_wavelet.npy
