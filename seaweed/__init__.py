@@ -1,6 +1,6 @@
 """SEAWEED: SEAfloor WavelEt Extraction and Diagnostics.
 
-An automated workflow, with fixed default parameters, that extracts the
+An automated workflow, with default parameters, that extracts the
 effective source wavelet -- source signature with source and receiver ghosts
 -- from the water-bottom reflection of marine seismic data, and tests it
 against the water-layer multiples and a statistical amplitude spectrum.

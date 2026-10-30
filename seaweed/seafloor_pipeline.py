@@ -26,8 +26,11 @@ run_real call.  Cells, combs and blocks are extracted on the same tracking with
     python -m seaweed.run_real <line flags> --load_track OUTDIR/track.npz \\
         --recipe final --dxsp DXSP --sp_first ... --sp_last ... --sp_step ...
 
-    python -m seaweed.seafloor_pipeline --segy LINE.sgy --near 262 --dx 25 \\
-        --nshot 1012 --dxsp 25 [--group G] [--load_cube CUBE] OUTDIR
+    python -m seaweed.seafloor_pipeline OUTDIR --segy LINE.sgy --near 262 --dx 25 \\
+        --nshot 1012 --dxsp 25 [--group G] [--load_cube CUBE]
+
+OUTDIR comes first: with it last, the value of a flag this script does not
+know (--near 262) would be taken as OUTDIR.
 """
 import argparse
 import json

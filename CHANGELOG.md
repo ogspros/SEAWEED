@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Docstrings only: the package docstring says "default parameters", as the
+  README, and the usage line of `seafloor_pipeline` puts `OUTDIR` first, as
+  the README examples (with it last, the value of `--near` was taken as the
+  output directory).
+
 ## 1.0.0
 
 First public release: the final recipe of the paper, run by
