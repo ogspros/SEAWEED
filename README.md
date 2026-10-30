@@ -1,9 +1,11 @@
 # SEAWEED
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23780745.svg)](https://doi.org/10.5281/zenodo.23780745)
+
 **SEAfloor WavelEt Extraction and Diagnostics** — an open-source workflow for
 automated extraction and diagnostics of effective marine seismic wavelets.
 
-SEAWEED implements an automated workflow with fixed default parameters for
+SEAWEED implements an automated workflow with default parameters for
 extracting the effective wavelet from marine seismic data when a recorded
 source signature is unavailable. It identifies and tracks the seafloor, aligns
 and stacks the water-bottom reflection on the near channel, locates the origin
@@ -28,8 +30,7 @@ Alongside the wavelet it reports physical and statistical checks:
   the amplitude ratios give two estimates of the seafloor reflection
   coefficient `R_wb`;
 - the correlation of the wavelet's amplitude spectrum with a statistical
-  estimate from below-seafloor windows, which uses neither the tracked
-  reflection nor its alignment;
+  estimate from below-seafloor windows;
 - stack coherence, alignment residual, the stability of the origin across
   partial stacks, and the separation between the direct arrival and the
   primary.
@@ -138,8 +139,8 @@ nearest for tracking, more for the velocity scans).
 ### The command, with the defaults
 
 ```
-python -m seaweed.seafloor_pipeline --segy line.sgy --near 125 --dx 25 \
-    --nshot 1000 --dxsp 25 line_out
+python -m seaweed.seafloor_pipeline line_out --segy line.sgy --near 125 --dx 25 \
+    --nshot 1000 --dxsp 25
 ```
 
 `line_out` must not exist. The run takes from minutes to about an hour,
@@ -250,13 +251,12 @@ shot gathers (SEG-Y) into a directory, here `viking/seismic.sgy`. The line has
 sampling.
 
 ```
-python -m seaweed.seafloor_pipeline --segy viking/seismic.sgy --near 262 --dx 25 \
-    --nshot 1012 --dxsp 25 --stretch_semb 0.15 viking_out
+python -m seaweed.seafloor_pipeline viking_out --segy viking/seismic.sgy --near 262 \
+    --dx 25 --nshot 1012 --dxsp 25
 ```
 
-`--stretch_semb 0.15` is the line flag of the paper for the semblance scan of
-the first pass, and `--nshot 1012` is the value of the paper, which loads the
-1001 shots of the line.
+`--nshot 1012` is the value of the paper, which loads the 1001 shots of the
+line.
 
 The run ends with lines like
 
@@ -285,7 +285,7 @@ docs/
     RUNS.md               which script produces which number of the paper
     experiments/          how the final recipe was developed: protocols, criteria, outcomes, decisions
     LAYOUT.md             where each script of the original working directory went
-logs/                     the logs of the first version of the paper
+logs/                     the logs of the runs behind the first version of the paper, before the final recipe
 tests/                    the checks that a change to the code leaves the results unchanged
 ```
 
@@ -308,7 +308,9 @@ script that produces it. The real lines are run by
 
 [`docs/experiments/`](docs/experiments/README.md) records how the final recipe
 was reached: the protocols, the criteria fixed before each run, the outcomes,
-and the two rules set aside by decision. The internal working record it
+and the four times a rule fixed before a run was set aside or changed after a
+result had been seen (`rule_overrides.md`): two overrides of a decision rule
+and two changes to a criterion or a flag rule. The internal working record it
 summarises, in Italian and with the paths of the machine it was run on, is
 available from the authors on request.
 
@@ -320,8 +322,8 @@ Viking Graben data (see [`tests/README.md`](tests/README.md)):
   compares the onset tracking and the ten wavelets with
   `tests/reference_final/`;
 - `bash tests/smoke_test.sh` re-runs the ten combs of the first version
-  (`--recipe paper`, tag `v1.0-as-run`) and compares them with
-  `tests/reference/`.
+  (`--recipe paper`, the defaults of the paper's first version) and compares
+  them with `tests/reference/`.
 
 `bash tests/check_static.sh` and `python3 tests/test_h3.py` need no data.
 
@@ -335,8 +337,8 @@ If you use SEAWEED, please cite the paper:
 > Oceanography*, submitted.
 
 and the archived version of the software you used
-([`CITATION.cff`](CITATION.cff)). Its DOI will be added here when the release
-is archived on Zenodo.
+([`CITATION.cff`](CITATION.cff)), archived on Zenodo with DOI
+[10.5281/zenodo.23780745](https://doi.org/10.5281/zenodo.23780745).
 
 ## Authors
 

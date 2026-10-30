@@ -5,8 +5,8 @@ output where that script prints it. The drivers read the data from `DATA`
 (`validation/real/README.md`, `validation/synthetic/README.md`) and write into
 a new directory. Section numbers are those of the paper.
 
-The numbers of the first version of the paper (tag `v1.0-as-run`) and the logs
-they were read from are in `logs/`; they are not listed here.
+The logs the numbers of the paper's first version were read from (code of the
+internal tag `v1.0-as-run`) are in `logs/`; those numbers are not listed here.
 
 ## Sect. 2: method
 

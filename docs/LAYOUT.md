@@ -9,13 +9,9 @@ modules, which now reads `from seaweed.<module> import ...`.
 The shell drivers call the scripts at their new paths, and take the data
 from the directory they are run in.
 
-The state in which the paper's numbers were computed is the tag
-`v1.0-as-run`. Any file below, moved or removed, can be read there:
-
-```
-git show v1.0-as-run:run_real.py               # print the file as it was
-git checkout v1.0-as-run -- shape_decon.py     # bring a removed file back
-```
+The state in which the numbers of the paper's first version were computed is
+an internal tag, `v1.0-as-run`, not part of this repository; the files below,
+as they were there, are available from the authors on request.
 
 ## Moved
 
@@ -101,7 +97,7 @@ git checkout v1.0-as-run -- shape_decon.py     # bring a removed file back
 ## Removed from the release
 
 They produced no number of the paper, or they have been superseded. They
-remain in the tag `v1.0-as-run`.
+remain in the internal tag `v1.0-as-run`.
 
 **Neural-network project (not SEAWEED).** `MS29_validazione_profondita.md`, `apply_ms29_tt.py`, `apply_real_hf.py`, `architettura_token_traccia.md`, `baseline_classico.py`, `buchi.sh`, `check_consistency.py`, `data_loader.py`, `dataset_hf80_design_notes.md`, `dataset_hf80_design_notes_up1.md`, `dataset_hf80_design_notes_up2.md`, `delete_vintage.py`, `depth_probe.py`, `diagnose_qc.py`, `film_model.py`, `film_su_z_fase1.md`, `finetune_real.py`, `generate_dataset_gpu.py`, `generate_dataset_large.py`, `ghost_model.py`, `make_minphase_source.py`, `mute_test.py`, `net_tt.py`, `occlusion_test.py`, `precompute_windows.py`, `precompute_zest.py`, `profile_pipeline.py`, `qc_wavelet.py`, `rebaseline_extractor.py`, `rebaseline_extractor2.py`, `run_parallel_geomvar.sh`, `run_parallel_geomvar_add.sh`, `run_parallel_geomvar_reband.sh`, `run_parallel_hf.sh`, `run_precompute_windows.sh`, `sequenza_validazione_hf.md`, `test_finestratura.py`, `test_generazione.py`, `test_regime.py`, `token_trace_skeleton.py`, `trace_encoder.py`, `train_film.py`, `train_large.py`, `train_large_hf.py`, `train_tt.py`, `varpro_inversion.py`, `verifica_ghost_fisico.py`, `verify_predictions.py`
 

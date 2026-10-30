@@ -5,7 +5,7 @@ version: 1.0.0
 license: BSD-3-Clause
 repository-code: "https://github.com/ogspros/SEAWEED"
 abstract: >-
-  An automated workflow, with fixed default parameters, for extracting the
+  An automated workflow, with default parameters, for extracting the
   effective wavelet (source signature with source and receiver ghosts) from
   marine seismic data when a recorded source signature is unavailable, with
   physical and statistical diagnostics from the water-layer multiples and a

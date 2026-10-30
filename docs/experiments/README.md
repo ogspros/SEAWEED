@@ -49,11 +49,11 @@ The numbers of the paper, each with the script that produces it, are in
 
 | tag | date | state |
 |---|---|---|
-| `v1.0-as-run` | 18 Sep 2026 | the code that produced the first version of the paper (public) |
+| `v1.0-as-run` | 18 Sep 2026 | the code that produced the first version of the paper (internal) |
 | `baseline-stage1` | 22 Oct 2026 | the stage-1 tracking regenerated from the anchors, the reference the onset tracking was compared with (internal) |
 | `h3.1-adopted` | 23 Oct 2026 | the onset tracking adopted (internal) |
 | `method-final` | 26 Oct 2026 | the method frozen before the NCC against the signature (internal) |
-| `v1.0.0` | — | the first public release; `seaweed/` identical to `method-final` |
+| `v1.0.0` | 29 Oct 2026 | the first public release; `seaweed/` functionally identical to `method-final` (see `CHANGELOG.md`) |
 
 ## Glossary of internal names
 
