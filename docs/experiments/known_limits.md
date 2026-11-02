@@ -47,3 +47,47 @@ stated where the paper discusses the corresponding step.
   of 20 shots has a single block of 50, so the check never triggers there.
 - **The multiple checks are not calibrated as failure detectors.** No
   multiple-absent, misplaced-window or noise-only controls were run.
+
+## Known issues of 1.0.0
+
+Found after the release, on an external line and on synthetic records built
+to reproduce it. Not corrected in 1.0.0.
+
+- **Stage 1 on a source coda, with a varying seafloor.** Where the source
+  signature has a long periodic coda, flat in time along the line, and the
+  seafloor varies by hundreds of milliseconds within a stage-1 group, the
+  consensus picker can lock on the coda. The coda arrives after the measured
+  end of the direct, so it is not discarded; its periodicity mimics the
+  water-layer multiple; and its semblance at a single t0 is higher than that
+  of a seafloor that changes within the group. The neighbour check then
+  rejects the few groups that are on the seafloor. *Symptom:* stage-1 anchors
+  at the same time along the whole line (`group_t0` in `stage1_anchors.npz`),
+  and `domain.flag` "outside the domain, T_dom not measurable". *Remedy*
+  (assisted processing): pick the anchors with
+  `python -m seaweed.pick_seafloor --lag T0MIN T0MAX ... --save_anchors anchors.npz`,
+  with the lag range read off the near-offset section (and `--group_m`
+  shorter than the default 800 m where the seafloor varies fast), then run the
+  pipeline with `--load_anchors anchors.npz`.
+- **Alignment on a very rough seafloor.** Where t0 varies by more than
+  T_dom/2 across the adjacent shots of a tracking group, the two-stage
+  alignment does not follow it: the stack coherence is low and the
+  bistability check is often raised, while on a regular stretch of the same
+  line the extraction is clean. *Remedy:* extract on stretches where the
+  seafloor is regular (`run_real --sp_first --sp_last`, as in the README)
+  and compare them.
+- **The onset constant depends on the noise.** The onset tracking applies
+  a fixed convention constant (`CONVENTION_MS` in `h3_track`), calibrated on
+  synthetic records; the threshold of the onset rule rises with the noise, so
+  on noisier records the onset is measured later. On a flat synthetic control
+  the final tracking moves from −1.8 ms against the truth without noise to
+  +9.8 ms with noise at 0.044 of the direct-arrival amplitude. *Expected
+  effect:* a constant offset of the tracking, not a change of its shape; not
+  yet verified on real lines.
+- **False bistability on a short last block.** The bistability check
+  compares partial stacks of 50 shots; the last block of a line can be much
+  shorter, and its origin is less reliable. On a flat, noise-free synthetic
+  record with a correct tracking, the last block (18 shots) was 74 samples
+  off the others: one block of six is already above the 10 % limit, and
+  `bistable` is true. If only the last block is off (`full.log`, "partial
+  stacks of 50 shots"), the flag does not mean that the stack holds two
+  states.

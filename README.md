@@ -214,6 +214,9 @@ python -m seaweed.run_real --segy line.sgy --near 125 --dx 25 --nshot 1000 \
 Shots spread along the line (`--sp_step`) give a more stable wavelet than a
 contiguous block of the same size.
 
+Known limits and the known issues of 1.0.0, with their symptoms and remedies,
+are in [`docs/experiments/known_limits.md`](docs/experiments/known_limits.md).
+
 ### Options
 
 `python -m seaweed.seafloor_pipeline --help` and `python -m seaweed.run_real
